@@ -650,4 +650,28 @@ export const api = {
   // LP retry
   retryBatchLP: (batchId, options = {}) =>
     request(`/batches/${batchId}/retry-lp`, { method: 'POST', body: JSON.stringify(options), headers: { 'Content-Type': 'application/json' } }),
+
+  // ── Ad Gen 2.0 ──────────────────────────────────────────────────────
+  getBrandDna: (projectId) =>
+    request(`/projects/${projectId}/adgen2/brand-dna`),
+  generateBrandDna: (projectId, body, onEvent) =>
+    streamSSEWithBody(`/projects/${projectId}/adgen2/brand-dna`, body, onEvent),
+  updateBrandDna: (projectId, dnaId, data) =>
+    request(`/projects/${projectId}/adgen2/brand-dna/${dnaId}`, { method: 'PUT', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } }),
+  deleteBrandDna: (projectId, dnaId) =>
+    request(`/projects/${projectId}/adgen2/brand-dna/${dnaId}`, { method: 'DELETE' }),
+  getAdgen2Templates: (projectId) =>
+    request(`/projects/${projectId}/adgen2/templates`),
+  fillAdgen2Templates: (projectId, body) =>
+    request(`/projects/${projectId}/adgen2/fill-templates`, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } }),
+  getAdgen2Images: (projectId) =>
+    request(`/projects/${projectId}/adgen2/images`),
+  generateAdgen2Images: (projectId, body, onEvent) =>
+    streamSSEWithBody(`/projects/${projectId}/adgen2/generate`, body, onEvent),
+  generateAdgen2Single: (projectId, body, onEvent) =>
+    streamSSEWithBody(`/projects/${projectId}/adgen2/generate-single`, body, onEvent),
+  updateAdgen2Image: (projectId, imageId, data) =>
+    request(`/projects/${projectId}/adgen2/images/${imageId}`, { method: 'PUT', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } }),
+  deleteAdgen2Image: (projectId, imageId) =>
+    request(`/projects/${projectId}/adgen2/images/${imageId}`, { method: 'DELETE' }),
 };

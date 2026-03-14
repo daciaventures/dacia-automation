@@ -141,6 +141,36 @@ export async function withGeminiLimit(fn, label = '') {
   });
 }
 
+// ── FAL image generation semaphore ─────────────────────────────────────────
+
+// Allow 2 concurrent FAL image generation calls.
+const falSemaphore = new AsyncSemaphore(2);
+
+/**
+ * Execute a FAL API call with concurrency limiting.
+ * Up to 2 image generations run concurrently.
+ *
+ * @param {() => Promise<T>} fn - The async function to run
+ * @param {string} [label] - Label for logging
+ * @returns {Promise<T>}
+ */
+export async function withFALLimit(fn, label = '') {
+  const queuePos = falSemaphore.pending;
+  if (queuePos > 0) {
+    console.log(`[FALLimit] ${label} Queued (position ${queuePos}, ${falSemaphore.active} active)`);
+  }
+
+  return falSemaphore.run(async () => {
+    console.log(`[FALLimit] ${label} Starting FAL API call...`);
+    try {
+      const result = await fn();
+      return result;
+    } finally {
+      console.log(`[FALLimit] ${label} Done. ${falSemaphore.pending} waiting.`);
+    }
+  });
+}
+
 // ── Stats ────────────────────────────────────────────────────────────────────
 
 /**
@@ -153,5 +183,7 @@ export function getRateLimiterStats() {
     lastHeavyCallEnd: lastHeavyCallEnd ? new Date(lastHeavyCallEnd).toISOString() : null,
     activeGeminiCalls: geminiSemaphore.active,
     queuedGeminiCalls: geminiSemaphore.pending,
+    activeFALCalls: falSemaphore.active,
+    queuedFALCalls: falSemaphore.pending,
   };
 }

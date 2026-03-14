@@ -19,6 +19,7 @@ const LPGen = lazy(() => import('../components/LPGen'));
 const CopywriterChat = lazy(() => import('../components/CopywriterChat'));
 const CreativeFilterSettings = lazy(() => import('../components/CreativeFilterSettings'));
 const AgencyChat = lazy(() => import('../components/AgencyChat'));
+const AdGen2 = lazy(() => import('../components/AdGen2'));
 
 const STATUS_CONFIG = {
   setup: { label: 'Setup', bg: 'bg-gold/10', text: 'text-gold' },
@@ -39,7 +40,7 @@ export default function ProjectDetail() {
   const [saving, setSaving] = useState(false);
   const [deletingProject, setDeletingProject] = useState(false);
   // Persist active tab in URL search params so it survives page refresh
-  const validTabs = ['quotes', 'ads', 'tracker', 'lpgen', 'ai-agency', 'overview', 'docs', 'templates'];
+  const validTabs = ['quotes', 'ads', 'tracker', 'lpgen', 'adgen2', 'ai-agency', 'overview', 'docs', 'templates'];
   const defaultTab = user?.role === 'poster' ? 'tracker' : 'ads';
   const tabFromUrl = searchParams.get('tab');
   const [tab, setTabState] = useState(
@@ -357,6 +358,7 @@ export default function ProjectDetail() {
     { id: 'ads', label: 'Ad Studio', tooltip: 'Generate individual ads or run batch generation.' },
     { id: 'lpgen', label: 'LP Generator', tooltip: 'Generate landing page copy from foundational docs + swipe file.' },
     { id: 'tracker', label: 'Ad Pipeline', tooltip: 'Plan, organize, and deploy ads to campaigns and ad sets.' },
+    { id: 'adgen2', label: 'Ad Gen 2.0', tooltip: 'Generate static ads using FAL Nano Banana 2 with Brand DNA research.' },
     { id: 'ai-agency', label: 'AI Agency', tooltip: 'Chat with specialized AI agents using your project context.' },
     { id: 'overview', label: 'Project Settings', tooltip: 'Project configuration, foundational docs, and template library.' }
   ];
@@ -909,6 +911,11 @@ export default function ProjectDetail() {
         {tab === 'lpgen' && (
           <ErrorBoundary level="tab" key="lpgen">
             <LPGen projectId={id} project={project} />
+          </ErrorBoundary>
+        )}
+        {tab === 'adgen2' && (
+          <ErrorBoundary level="tab" key="adgen2">
+            <AdGen2 projectId={id} />
           </ErrorBoundary>
         )}
         {tab === 'ai-agency' && (

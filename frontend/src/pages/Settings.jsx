@@ -534,6 +534,7 @@ export default function Settings() {
     gemini_rate_1k: '',
     gemini_rate_2k: '',
     gemini_rate_4k: '',
+    fal_api_key: '',
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -580,6 +581,7 @@ export default function Settings() {
       if (form.gemini_api_key) payload.gemini_api_key = form.gemini_api_key;
       if (form.perplexity_api_key) payload.perplexity_api_key = form.perplexity_api_key;
       if (form.anthropic_api_key) payload.anthropic_api_key = form.anthropic_api_key;
+      if (form.fal_api_key) payload.fal_api_key = form.fal_api_key;
       if (form.gemini_rate_1k) payload.gemini_rate_1k = form.gemini_rate_1k;
       if (form.gemini_rate_2k) payload.gemini_rate_2k = form.gemini_rate_2k;
       if (form.gemini_rate_4k) payload.gemini_rate_4k = form.gemini_rate_4k;
@@ -807,6 +809,20 @@ export default function Settings() {
                 </button>
               </div>
               {testResults.anthropic && <p className="text-[12px] text-textlight mt-1">{testResults.anthropic}</p>}
+            </div>
+
+            {/* FAL API Key */}
+            <div>
+              <label className="block text-[12px] font-medium text-textmid mb-1">
+                FAL API Key <span className="text-textlight">(Ad Gen 2.0)</span>
+              </label>
+              <input
+                type="password"
+                value={form.fal_api_key}
+                onChange={e => setForm(p => ({ ...p, fal_api_key: e.target.value }))}
+                className="input-apple w-full"
+                placeholder={settings.fal_api_key || 'Enter FAL API key'}
+              />
             </div>
           </div>
         </div>

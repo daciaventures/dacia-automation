@@ -77,6 +77,8 @@ const TABLE_TTL = {
   meta_performance:     2 * 60 * 1000,
   headline_history:     1 * 60 * 1000,
   lp_headline_history:  1 * 60 * 1000,
+  brand_dna:            5 * 60 * 1000,
+  adgen2_images:        1 * 60 * 1000,
 };
 const DEFAULT_QUERY_TTL = 60 * 1000;
 
@@ -678,6 +680,57 @@ function convexBatchToRow(b) {
     created_at: b.created_at,
     started_at: b.started_at || null,
     completed_at: b.completed_at || null,
+  };
+}
+
+// =============================================
+// Ad Gen 2.0 — Mapper functions
+// =============================================
+
+function convexBrandDnaToRow(b) {
+  return {
+    id: b.externalId,
+    project_id: b.project_id,
+    status: b.status,
+    brand_url: b.brand_url || null,
+    competitor_urls: b.competitor_urls || null,
+    additional_context: b.additional_context || null,
+    brand_overview: b.brand_overview || null,
+    visual_identity: b.visual_identity || null,
+    target_audience: b.target_audience || null,
+    tone_and_voice: b.tone_and_voice || null,
+    competitor_analysis: b.competitor_analysis || null,
+    image_prompt_modifier: b.image_prompt_modifier || null,
+    raw_research: b.raw_research || null,
+    error_message: b.error_message || null,
+    duration_ms: b.duration_ms || null,
+    created_at: b.created_at,
+    updated_at: b.updated_at,
+  };
+}
+
+function convexAdgen2ImageToRow(img) {
+  return {
+    id: img.externalId,
+    project_id: img.project_id,
+    brand_dna_id: img.brand_dna_id || null,
+    template_name: img.template_name || null,
+    filled_prompt: img.filled_prompt,
+    original_template: img.original_template || null,
+    storageId: img.storageId || null,
+    imageUrl: img.imageUrl || null,
+    fal_image_url: img.fal_image_url || null,
+    aspect_ratio: img.aspect_ratio || null,
+    resolution: img.resolution || null,
+    width: img.width || null,
+    height: img.height || null,
+    reference_image_urls: img.reference_image_urls || null,
+    used_edit_endpoint: img.used_edit_endpoint || false,
+    status: img.status || null,
+    error_message: img.error_message || null,
+    is_favorite: img.is_favorite || false,
+    tags: img.tags || null,
+    created_at: img.created_at,
   };
 }
 
@@ -1871,6 +1924,108 @@ export async function getFixerPlaybook(issueCategory) {
 export async function upsertFixerPlaybook(fields) {
   await mutationWithRetry(api.conductor.upsertFixerPlaybook, fields);
   invalidateQueryCache('conductor');
+}
+
+// =============================================
+// Brand DNA helpers (Ad Gen 2.0)
+// =============================================
+
+export async function getBrandDnaByProject(projectId) {
+  const row = await cachedQuery('brand_dna', api.brandDna.getByProject, { projectId });
+  return row ? convexBrandDnaToRow(row) : null;
+}
+
+export async function getBrandDna(externalId) {
+  const row = await cachedQuery('brand_dna', api.brandDna.getByExternalId, { externalId });
+  return row ? convexBrandDnaToRow(row) : null;
+}
+
+export async function createBrandDna(fields) {
+  await mutationWithRetry(api.brandDna.create, {
+    externalId: fields.id,
+    project_id: fields.project_id,
+    status: fields.status || 'draft',
+    brand_url: fields.brand_url || undefined,
+    competitor_urls: fields.competitor_urls || undefined,
+    additional_context: fields.additional_context || undefined,
+  });
+  invalidateQueryCache('brand_dna');
+}
+
+export async function updateBrandDna(id, fields) {
+  const allowed = [
+    'status', 'brand_url', 'competitor_urls', 'additional_context',
+    'brand_overview', 'visual_identity', 'target_audience', 'tone_and_voice',
+    'competitor_analysis', 'image_prompt_modifier', 'raw_research',
+    'error_message', 'duration_ms',
+  ];
+  const updates = { externalId: id };
+  for (const key of allowed) {
+    if (fields[key] !== undefined) updates[key] = fields[key];
+  }
+  await mutationWithRetry(api.brandDna.update, updates);
+  invalidateQueryCache('brand_dna');
+}
+
+export async function deleteBrandDna(id) {
+  await mutationWithRetry(api.brandDna.remove, { externalId: id });
+  invalidateQueryCache('brand_dna');
+}
+
+// =============================================
+// Ad Gen 2.0 Image helpers
+// =============================================
+
+export async function getAdgen2ImagesByProject(projectId) {
+  const rows = await cachedQuery('adgen2_images', api.adgen2Images.getByProject, { projectId });
+  return (rows || []).map(convexAdgen2ImageToRow);
+}
+
+export async function getAdgen2Image(externalId) {
+  const row = await cachedQuery('adgen2_images', api.adgen2Images.getByExternalId, { externalId });
+  return row ? convexAdgen2ImageToRow(row) : null;
+}
+
+export async function createAdgen2Image(fields) {
+  await mutationWithRetry(api.adgen2Images.create, {
+    externalId: fields.id,
+    project_id: fields.project_id,
+    brand_dna_id: fields.brand_dna_id || undefined,
+    template_name: fields.template_name || undefined,
+    filled_prompt: fields.filled_prompt,
+    original_template: fields.original_template || undefined,
+    storageId: fields.storageId || undefined,
+    fal_image_url: fields.fal_image_url || undefined,
+    aspect_ratio: fields.aspect_ratio || undefined,
+    resolution: fields.resolution || undefined,
+    width: fields.width || undefined,
+    height: fields.height || undefined,
+    reference_image_urls: fields.reference_image_urls || undefined,
+    used_edit_endpoint: fields.used_edit_endpoint || undefined,
+    status: fields.status || 'pending',
+    error_message: fields.error_message || undefined,
+    is_favorite: fields.is_favorite || undefined,
+    tags: fields.tags || undefined,
+  });
+  invalidateQueryCache('adgen2_images');
+}
+
+export async function updateAdgen2Image(id, fields) {
+  const allowed = [
+    'status', 'storageId', 'fal_image_url', 'width', 'height',
+    'error_message', 'is_favorite', 'tags',
+  ];
+  const updates = { externalId: id };
+  for (const key of allowed) {
+    if (fields[key] !== undefined) updates[key] = fields[key];
+  }
+  await mutationWithRetry(api.adgen2Images.update, updates);
+  invalidateQueryCache('adgen2_images');
+}
+
+export async function deleteAdgen2Image(id) {
+  await mutationWithRetry(api.adgen2Images.remove, { externalId: id });
+  invalidateQueryCache('adgen2_images');
 }
 
 // =============================================

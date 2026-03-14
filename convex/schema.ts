@@ -793,6 +793,54 @@ export default defineSchema({
     .index("by_project", ["project_id"])
     .index("by_externalId", ["externalId"]),
 
+  // ── Ad Gen 2.0 ──────────────────────────────────────────────────
+  brand_dna: defineTable({
+    externalId: v.string(),
+    project_id: v.string(),
+    status: v.string(),                          // draft | researching | completed | failed
+    brand_url: v.optional(v.string()),
+    competitor_urls: v.optional(v.string()),      // JSON array
+    additional_context: v.optional(v.string()),
+    brand_overview: v.optional(v.string()),
+    visual_identity: v.optional(v.string()),     // JSON: colors, fonts, photography style
+    target_audience: v.optional(v.string()),
+    tone_and_voice: v.optional(v.string()),
+    competitor_analysis: v.optional(v.string()), // JSON array of competitor summaries
+    image_prompt_modifier: v.optional(v.string()),
+    raw_research: v.optional(v.string()),
+    error_message: v.optional(v.string()),
+    duration_ms: v.optional(v.number()),
+    created_at: v.string(),
+    updated_at: v.string(),
+  })
+    .index("by_externalId", ["externalId"])
+    .index("by_project", ["project_id"]),
+
+  adgen2_images: defineTable({
+    externalId: v.string(),
+    project_id: v.string(),
+    brand_dna_id: v.optional(v.string()),
+    template_name: v.optional(v.string()),
+    filled_prompt: v.string(),
+    original_template: v.optional(v.string()),
+    storageId: v.optional(v.id("_storage")),
+    fal_image_url: v.optional(v.string()),
+    aspect_ratio: v.optional(v.string()),
+    resolution: v.optional(v.string()),
+    width: v.optional(v.number()),
+    height: v.optional(v.number()),
+    reference_image_urls: v.optional(v.string()), // JSON array
+    used_edit_endpoint: v.optional(v.boolean()),
+    status: v.optional(v.string()),              // pending | generating | completed | failed
+    error_message: v.optional(v.string()),
+    is_favorite: v.optional(v.boolean()),
+    tags: v.optional(v.string()),                // JSON array
+    created_at: v.string(),
+  })
+    .index("by_externalId", ["externalId"])
+    .index("by_project", ["project_id"])
+    .index("by_brand_dna", ["brand_dna_id"]),
+
   fixer_playbook: defineTable({
     issue_category: v.string(),          // "batch_stuck" | "filter_stalled" | etc.
     occurrences: v.number(),

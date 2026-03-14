@@ -1,0 +1,137 @@
+[
+  {
+    "id": "product-hero-clean",
+    "name": "Product Hero (Clean Background)",
+    "category": "product",
+    "template": "[IMAGE_PROMPT_MODIFIER] Professional product photograph of [PRODUCT_DESCRIPTION] centered on a clean [PRIMARY_BG_COLOR] background, [LIGHTING_STYLE], sharp detail, the product label clearly visible with [BRAND_DISTINCTIVE_FEATURES], subtle [ACCENT_COLOR] color accents in the composition, [ASPECT_RATIO_NOTE]",
+    "aspect_ratio": "1:1",
+    "needs_product_images": true,
+    "description": "Clean product shot on a solid background with brand-appropriate styling"
+  },
+  {
+    "id": "product-lifestyle",
+    "name": "Product Lifestyle Shot",
+    "category": "product",
+    "template": "[IMAGE_PROMPT_MODIFIER] Lifestyle photograph of [PRODUCT_DESCRIPTION] in a natural setting that reflects [TARGET_AUDIENCE_LIFESTYLE], [PHOTOGRAPHY_STYLE], warm natural lighting, shallow depth of field, the product is the focal point surrounded by contextual props, [MOOD_DESCRIPTION]",
+    "aspect_ratio": "4:5",
+    "needs_product_images": true,
+    "description": "Product in a lifestyle setting that resonates with the target audience"
+  },
+  {
+    "id": "headline-bold",
+    "name": "Bold Headline Ad",
+    "category": "text-overlay",
+    "template": "[IMAGE_PROMPT_MODIFIER] A bold, eye-catching static ad design with a [PRIMARY_BG_COLOR] background. Large [HEADLINE_FONT_STYLE] headline text reading \"[HEADLINE_TEXT]\" in [HEADLINE_COLOR]. Smaller subheadline below reading \"[SUBHEADLINE_TEXT]\" in [BODY_TEXT_COLOR]. [CTA_BUTTON_STYLE] button at the bottom reading \"[CTA_TEXT]\" in [CTA_COLOR]. Clean, modern ad layout, no clutter",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Bold text-heavy ad with headline, subheadline, and CTA button"
+  },
+  {
+    "id": "testimonial-card",
+    "name": "Testimonial Card",
+    "category": "social-proof",
+    "template": "[IMAGE_PROMPT_MODIFIER] A clean testimonial card design on a [SECONDARY_BG_COLOR] background. Five gold stars at the top. Large quotation marks in [ACCENT_COLOR]. Testimonial text reading \"[TESTIMONIAL_QUOTE]\" in [BODY_TEXT_COLOR] with [BODY_FONT_STYLE] font. Attribution at bottom: \"[CUSTOMER_NAME], [CUSTOMER_TITLE]\" in smaller [ACCENT_COLOR] text. Subtle [BRAND_COLOR] border or accent line",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Customer testimonial card with stars, quote, and attribution"
+  },
+  {
+    "id": "us-vs-them",
+    "name": "Us vs Them Comparison",
+    "category": "comparison",
+    "template": "[IMAGE_PROMPT_MODIFIER] A split-screen comparison ad. Left side labeled \"[COMPETITOR_LABEL]\" with a muted, desaturated look and [NEGATIVE_POINTS]. Right side labeled \"[BRAND_NAME]\" with vibrant [PRIMARY_COLOR] branding and [POSITIVE_POINTS]. Clear visual contrast between the two sides. [HEADLINE_FONT_STYLE] text, modern ad layout, the brand side clearly more appealing",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Side-by-side comparison highlighting brand advantages"
+  },
+  {
+    "id": "ugc-style-selfie",
+    "name": "UGC-Style Selfie Post",
+    "category": "ugc",
+    "template": "[IMAGE_PROMPT_MODIFIER] A natural, candid-looking selfie-style photograph of a [TARGET_DEMOGRAPHIC] person holding [PRODUCT_DESCRIPTION], genuine smile, slightly imperfect framing like a real social media post, natural indoor lighting, [PHOTOGRAPHY_STYLE], the product label clearly visible, authentic and relatable feel, no studio lighting",
+    "aspect_ratio": "4:5",
+    "needs_product_images": true,
+    "description": "Authentic-looking UGC selfie with the product"
+  },
+  {
+    "id": "stat-callout",
+    "name": "Statistic Callout",
+    "category": "social-proof",
+    "template": "[IMAGE_PROMPT_MODIFIER] A bold statistic callout ad with [PRIMARY_BG_COLOR] background. Large numbers reading \"[STAT_NUMBER]\" in [ACCENT_COLOR] with [HEADLINE_FONT_STYLE] font, very prominent. Supporting text below: \"[STAT_CONTEXT]\" in [BODY_TEXT_COLOR]. Small [BRAND_NAME] logo or wordmark in corner. Clean, data-driven design that builds trust",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Bold statistic with supporting context for social proof"
+  },
+  {
+    "id": "before-after",
+    "name": "Before & After",
+    "category": "transformation",
+    "template": "[IMAGE_PROMPT_MODIFIER] A before-and-after transformation ad. Left side labeled \"BEFORE\" showing [BEFORE_STATE] in muted, cool tones. Right side labeled \"AFTER\" showing [AFTER_STATE] in warm, vibrant tones. Arrow or dividing line between them in [ACCENT_COLOR]. [PRODUCT_DESCRIPTION] subtly shown at the bottom. Dramatic but believable transformation",
+    "aspect_ratio": "1:1",
+    "needs_product_images": true,
+    "description": "Before/after transformation showing product results"
+  },
+  {
+    "id": "feature-grid",
+    "name": "Feature Benefits Grid",
+    "category": "educational",
+    "template": "[IMAGE_PROMPT_MODIFIER] A clean 2x2 grid ad layout on [PRIMARY_BG_COLOR] background. Four benefit icons with labels: \"[BENEFIT_1]\" with check icon, \"[BENEFIT_2]\" with check icon, \"[BENEFIT_3]\" with check icon, \"[BENEFIT_4]\" with check icon. All in [BODY_TEXT_COLOR] with [ACCENT_COLOR] icons. Headline at top: \"[HEADLINE_TEXT]\" in [HEADLINE_COLOR]. Brand logo at bottom center",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Grid layout showing four key product benefits"
+  },
+  {
+    "id": "offer-promo",
+    "name": "Offer / Promotion",
+    "category": "promotional",
+    "template": "[IMAGE_PROMPT_MODIFIER] A promotional offer ad with [PRIMARY_BG_COLOR] background. Large text showing \"[OFFER_TEXT]\" (e.g. 25% OFF) in [ACCENT_COLOR] bold [HEADLINE_FONT_STYLE]. Supporting text: \"[OFFER_DETAILS]\" in [BODY_TEXT_COLOR]. Prominent [CTA_BUTTON_STYLE] button reading \"[CTA_TEXT]\". Urgency element: \"[URGENCY_TEXT]\" in smaller text. [PRODUCT_DESCRIPTION] shown below the offer",
+    "aspect_ratio": "4:5",
+    "needs_product_images": true,
+    "description": "Promotional offer with discount, urgency, and CTA"
+  },
+  {
+    "id": "editorial-press",
+    "name": "Editorial / Press Style",
+    "category": "trust",
+    "template": "[IMAGE_PROMPT_MODIFIER] An editorial-style press ad resembling a magazine feature. Clean white or cream background. \"As featured in\" or \"[PRESS_HEADLINE]\" in elegant serif font at top. [PRODUCT_DESCRIPTION] photographed in [PHOTOGRAPHY_STYLE] in the center. Pull quote: \"[EDITORIAL_QUOTE]\" in italic text below. Publication-style layout with generous whitespace, premium and trustworthy feel",
+    "aspect_ratio": "4:5",
+    "needs_product_images": true,
+    "description": "Premium editorial/press-style layout building credibility"
+  },
+  {
+    "id": "ingredient-spotlight",
+    "name": "Ingredient Spotlight",
+    "category": "educational",
+    "template": "[IMAGE_PROMPT_MODIFIER] An ingredient spotlight ad with [SECONDARY_BG_COLOR] background. Close-up of [KEY_INGREDIENT] in its natural form, beautifully photographed with [LIGHTING_STYLE]. Text overlay: \"[INGREDIENT_NAME]\" in [HEADLINE_COLOR] with [HEADLINE_FONT_STYLE]. Supporting text: \"[INGREDIENT_BENEFIT]\" in [BODY_TEXT_COLOR]. [PRODUCT_DESCRIPTION] shown small in the corner, linking the ingredient to the product",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Spotlight on a key ingredient with benefit explanation"
+  },
+  {
+    "id": "story-format",
+    "name": "Stories / Reels Format",
+    "category": "vertical",
+    "template": "[IMAGE_PROMPT_MODIFIER] A vertical 9:16 format ad optimized for stories and reels. [PRODUCT_DESCRIPTION] shown large in center with [PHOTOGRAPHY_STYLE]. Bold headline \"[HEADLINE_TEXT]\" in [HEADLINE_COLOR] at top. Swipe-up CTA at bottom: \"[CTA_TEXT]\" in [CTA_COLOR]. Dynamic, mobile-first composition with text safe zones respected, [PRIMARY_BG_COLOR] background gradient",
+    "aspect_ratio": "9:16",
+    "needs_product_images": true,
+    "description": "Vertical format optimized for Stories and Reels"
+  },
+  {
+    "id": "review-screenshot",
+    "name": "Faux Review Screenshot",
+    "category": "social-proof",
+    "template": "[IMAGE_PROMPT_MODIFIER] A realistic-looking product review screenshot design. White background mimicking a review platform. Five gold stars prominently shown. Review title: \"[REVIEW_TITLE]\" in bold dark text. Review body: \"[REVIEW_BODY]\" in regular dark text. Reviewer name: \"[REVIEWER_NAME]\" with a 'Verified Purchase' badge in green. Subtle [BRAND_COLOR] accent at top and bottom borders",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Realistic review screenshot design for social proof"
+  },
+  {
+    "id": "manifesto",
+    "name": "Brand Manifesto",
+    "category": "brand",
+    "template": "[IMAGE_PROMPT_MODIFIER] A brand manifesto ad with [PRIMARY_BG_COLOR] background. Centered text layout with generous whitespace. Opening line: \"[MANIFESTO_OPENING]\" in large [HEADLINE_FONT_STYLE] [HEADLINE_COLOR] text. Body: \"[MANIFESTO_BODY]\" in [BODY_TEXT_COLOR] [BODY_FONT_STYLE]. Closing with brand name \"[BRAND_NAME]\" in [ACCENT_COLOR]. Minimal design, no images, pure typography, powerful and aspirational",
+    "aspect_ratio": "1:1",
+    "needs_product_images": false,
+    "description": "Text-only brand manifesto ad with powerful typography"
+  }
+]

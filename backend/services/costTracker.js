@@ -198,6 +198,40 @@ export async function logGeminiCost(projectId, imageCount = 1, resolution = '2K'
   }
 }
 
+// FAL Nano Banana 2 pricing (per image)
+const FAL_RATES = {
+  '0.5K': 0.06,
+  '1K':   0.08,
+  '2K':   0.12,
+  '4K':   0.16,
+};
+
+export async function logFALCost(projectId, imageCount = 1, resolution = '2K', operation = 'adgen2_image') {
+  try {
+    const rate = FAL_RATES[resolution] || FAL_RATES['1K'];
+    const cost = imageCount * rate;
+
+    const record = {
+      id: uuidv4(),
+      project_id: projectId,
+      service: 'fal',
+      operation,
+      cost_usd: Math.round(cost * 1000000) / 1000000,
+      rate_used: rate,
+      image_count: imageCount,
+      resolution,
+      source: 'calculated',
+      period_date: new Date().toISOString().split('T')[0],
+    };
+
+    await logCost(record);
+    return record;
+  } catch (err) {
+    console.error('[CostTracker] Failed to log FAL cost:', err.message);
+    return null;
+  }
+}
+
 /**
  * Sync OpenAI costs from the Costs API.
  * Requires openai_admin_key to be configured.
